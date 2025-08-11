@@ -60,3 +60,25 @@ body{
     background-size: cover;
     background-attachment: fixed;
 }
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+menu,
+ul 
+{
+  display: flex;
+  list-style: none;
+  padding: 0;
+  width: 400px;
+}
+
+li {
+  flex-grow: 1;
+}
+
+button {
+  width: 100%;
+}
