@@ -22,7 +22,6 @@
 </details><!--进站须知-------------------------------------------------------------------->
 
 <hr>
-<hr>
 
  <label for="选择你的昵称">选择你的昵称:</label><!--昵称选项--------------------------------->
 <input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice" />
@@ -49,72 +48,7 @@
 <option value="Tazatel"></option>
 </datalist><!--昵称选项------------------------------------------------------------------->
 
-<h2>计时功能</h2>
-<script>
-var second = 0; // 初始化秒数
-var clock; // 计时器变量
-function resetTimer() {
-clearInterval(clock); // 清除计时器
-second = 0; // 重置秒数
-document.getElementById('timeValue').value = second + '秒';
-}
-function startTimer() {
-clock = setInterval(timer, 1000); // 每秒调用一次timer函数
-}
-function stopTimer() {
-clearInterval(clock); // 停止计时
-document.getElementById('timeValue').value = second + '秒';
-}
-function timer() {
-second++; // 增加秒数
-document.getElementById('timeValue').value = second + '秒';
-}
-</script>
-</head>
-<body>
-<div style="text-align: center">
-<input type="text" id="timeValue" value="0秒" readonly><br>
-<button type="button" onclick="startTimer()">开始</button>
-<button type="button" onclick="stopTimer()">暂停</button>
-<button type="button" onclick="resetTimer()">重置</button>
-</div>
 
-
-<em>
-<script>
-Date.prototype.format = function(fmt) {
-var o = {
-"y+": this.getFullYear(),
-"M+": this.getMonth() + 1,
-"d+": this.getDate(),
-"h+": this.getHours(),
-"m+": this.getMinutes(),
-"s+": this.getSeconds()
-};
-if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-for (var k in o)
-if (new RegExp("(" + k + ")").test(fmt))
-fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-return fmt;
-}
-function showTime() {
-var now = new Date();
-var timeString = now.format("yyyy-MM-dd hh:mm:ss");
-document.getElementById("datetime").innerHTML = timeString;
-}
-setInterval(showTime, 1000);
-</script>
-
-<div id="datetime"></div>
-
-<button name="button" type="button" onclick="alert('哈喽！🆒')"><strong>（没用的按钮）🗨️</strong></button>
-<p id="demo">点击我.</p>
-<script>
-document.getElementById("demo").addEventListener("click", myFunction);
-function myFunction() {
-  document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
-}
-</script>
 
 <hr>
 
@@ -129,6 +63,7 @@ function myFunction() {
 </body>
 
 </html>
+
 
 
 
