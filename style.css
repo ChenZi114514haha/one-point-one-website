@@ -15,7 +15,7 @@ h1{
   left: 50px;
   top:0;
   line-height: 90px;
-  background-image:url(photo/logo.svg);
+  background-image:url(image/logo.svg);
   background-repeat:no-repeat;
   background-position:center ;
   width:350px;
@@ -52,7 +52,7 @@ header a:hover{
   background-color: antiquewhite;
   color:#fef7e6 ;
   height: 95vh;
-  background-image: url("photo/.jpg");
+  background-image: url("image/background (2).jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -196,3 +196,4 @@ footer h2{
     cursor: pointer;
   }
 }
+
