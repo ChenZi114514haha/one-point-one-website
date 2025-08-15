@@ -52,7 +52,7 @@ header a:hover{
   background-color: antiquewhite;
   color:#fef7e6 ;
   height: 95vh;
-  background-image: url("photo/background.jpg");
+  background-image: url("photo/background(2).jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -196,4 +196,5 @@ footer h2{
     cursor: pointer;
   }
 }
+
 
