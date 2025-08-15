@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员注册与登录</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 24px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 12px 0 4px;
+            color: #555;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0078d4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            margin-top: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #005fa3;
+        }
+        .message {
+            background: #eaf6ea;
+            border-left: 4px solid #4caf50;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            color: #333;
+        }
+        .message strong {
+            color: #4caf50;
+        }
+        .error {
+            background: #fdecea;
+            border-left: 4px solid #f44336;
+        }
+        .error strong {
+            color: #f44336;
+        }
+    </style>
+    <script>
+    // 跳转到个人信息页
+    function redirectToProfile() {
+        window.location.href = "profile.html";
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>会员注册</h2>
+        <form id="membershipForm">
+            <label for="username">用户名</label>
+            <input type="text" id="username" name="username" placeholder="请输入用户名">
+            <label for="email">邮箱</label>
+            <input type="email" id="email" name="email" placeholder="请输入邮箱">
+            <button type="submit">注册</button>
+        </form>
+
+        <h2>会员登录</h2>
+        <form id="loginForm">
+            <label for="loginUsername">用户名</label>
+            <input type="text" id="loginUsername" name="loginUsername" placeholder="请输入用户名">
+            <label for="loginEmail">邮箱</label>
+            <input type="email" id="loginEmail" name="loginEmail" placeholder="请输入邮箱">
+            <button type="submit">登录</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+    <script>
+    // 保存注册信息
+    function saveUser(username, email) {
+        localStorage.setItem('memberUsername', username);
+        localStorage.setItem('memberEmail', email);
+    }
+
+    // 获取注册信息
+    function getUser() {
+        return {
+            username: localStorage.getItem('memberUsername'),
+            email: localStorage.getItem('memberEmail')
+        };
+    }
+
+    // 注册
+    document.getElementById('membershipForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const messageDiv = document.getElementById('message');
+        const user = getUser();
+
+        if (!username || !email) {
+            messageDiv.innerHTML = `<div class="message error"><strong>错误!</strong><p>请填写所有字段。</p></div>`;
+            return;
+        }
+        if (user.username && user.email) {
+            messageDiv.innerHTML = `<div class="message"><strong>已注册!</strong><p>您已注册会员，请直接登录。</p></div>`;
+            return;
+        }
+        saveUser(username, email);
+        messageDiv.innerHTML = `<div class="message"><strong>欢迎, ${username}!</strong><p>您的注册信息已提交成功，正在跳转...</p></div>`;
+        setTimeout(redirectToProfile, 1500);
+    });
+
+    // 登录
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const loginUsername = document.getElementById('loginUsername').value.trim();
+        const loginEmail = document.getElementById('loginEmail').value.trim();
+        const messageDiv = document.getElementById('message');
+        const user = getUser();
+
+        if (!loginUsername || !loginEmail) {
+            messageDiv.innerHTML = `<div class="message error"><strong>错误!</strong><p>请填写所有字段。</p></div>`;
+            return;
+        }
+        if (user.username === loginUsername && user.email === loginEmail) {
+            messageDiv.innerHTML = `<div class="message"><strong>欢迎回来, ${loginUsername}!</strong><p>登录成功，正在跳转...</p></div>`;
+            setTimeout(redirectToProfile, 1500);
+        } else {
+            messageDiv.innerHTML = `<div class="message error"><strong>登录失败!</strong><p>用户名或邮箱不正确，请重新输入或先注册。</p></div>`;
+        }
+    });
+    </script>
+    // 个人信息页面
+    <script>    
+    document.addEventListener('DOMContentLoaded', function() {
+        const user = getUser();
+        if (user.username && user.email) {
+            document.body.innerHTML = `
+                <div class="container">
+                    <h2>个人信息</h2>
+                    <p><strong>用户名:</strong> ${user.username}</p>
+                    <p><strong>邮箱:</strong> ${user.email}</p>
+                    <button onclick="window.location.href='index.html'">返回首页</button>
+                </div>
+            `;
+        } else {
+            document.body.innerHTML = `
+                <div class="container">
+                    <h2>未注册或未登录</h2>
+                    <p>请先注册或登录以查看个人信息。</p>
+                    <button onclick="window.location.href='index.html'">返回首页</button>
+                </div>
+            `;
+        }
+    }); 
+    </script>
+    <footer>    
+        <p>&copy; 2025 One Point One. All rights reserved.</p>
+        <p>如有任何问题或建议，请联系我们。</p>
+        <p><a href="index-6.html">关于我们</a></p>
+        <p><a href="index-3.html">One Point One 论坛</a></p>
+        <p><a href="index-4.html">网站规划</a></p>
+        <p><a href="index-5.html">会员中心</a></p>
+        <p><a href="index-2.html">最新消息</a></p>
+        <p><a href="index.html">返回首页</a></p>
+    </footer>
+</body>
+</html>
