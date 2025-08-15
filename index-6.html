@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>index.html 介绍与评价</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+        .container { max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+        h1 { color: #333; }
+        .intro { margin-bottom: 30px; }
+        .reviews { margin-top: 40px; }
+        .review { background: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 15px; }
+        .review strong { color: #0078d7; }
+        form { margin-top: 20px; }
+        label { display: block; margin-bottom: 8px; }
+        textarea { width: 100%; height: 60px; margin-bottom: 10px; }
+        input[type="text"] { width: 100%; margin-bottom: 10px; }
+        button { background: #0078d7; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005fa3; }
+    </style>
+</head>
+<body>
+    <nav>
+<ul>
+  <li><a href="index.html">返回首页↩️</a></li>
+  <li><a href="index-2.html">最新消息</a></li>
+  <li><a href="index-3.html">One Point One 论坛</a></li>
+  <li><a href="index-4.html">网站规划</a></li>
+  <li><a href="index-5.html">会员中心</a></li>
+
+</ul>
+</nav>
+    <div class="container">
+        <h1>关于我们</h1>
+        <div class="intro">
+            <p>
+                <strong>One-Point-One-Website</strong> 是一个致力于提供论坛交流和会员服务的网站。我们希望通过这个平台，用户可以参与讨论，并享受会员特权。
+            </p>
+            <p>
+                我们的目标是创建一个友好、开放的社区，欢迎所有人参与讨论和交流。无论你是想了解网站最新动态，还是想分享你的观点，这里都是一个理想的地方。
+            </p>   
+            <p>
+                如果你有任何建议或意见，欢迎通过我们的论坛或联系页面与我们交流。我们非常重视用户的反馈，并会努力改进网站体验。
+            </p>
+        </div>  
+        <hr>
+        <div class="reviews">
+            <h2>用户评价</h2>
+            <div id="reviews-list"></div>
+            <form id="review-form">
+                <label for="name">您的姓名：</label>
+                <input type="text" id="name" required>
+                <label for="email">您的 Email：</label>
+                <input type="email" id="email" required>
+                <label for="comment">您的评价：</label>
+                <textarea id="comment" required></textarea>
+                <button type="submit">提交评价</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('review-form');
+        const reviewsList = document.getElementById('reviews-list');
+
+        // 简单本地存储评价
+        function loadReviews() {
+            const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+            reviewsList.innerHTML = '';
+            reviews.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'review';
+                div.innerHTML = `<strong>${r.name}</strong>：${r.comment}`;
+                reviewsList.appendChild(div);
+            });
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const comment = document.getElementById('comment').value.trim();
+            if (name && comment) {
+                const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+                reviews.push({ name, comment });
+                localStorage.setItem('reviews', JSON.stringify(reviews));
+                form.reset();
+                loadReviews();
+            }
+        });
+
+        loadReviews();
+    </script>
+</body>
+</html>
